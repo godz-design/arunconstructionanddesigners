@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arun Constructions & Designers | Building Dreams with Modern Design</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Montserrat:wght@200;300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C97A;
+    --gold-dark: #9B7B2F;
+    --gold-subtle: rgba(201,168,76,0.12);
+    --black: #080808;
+    --black-2: #111111;
+    --black-3: #1a1a1a;
+    --black-4: #222222;
+    --white: #FFFFFF;
+    --white-dim: rgba(255,255,255,0.85);
+    --white-muted: rgba(255,255,255,0.5);
+    --white-faint: rgba(255,255,255,0.07);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Montserrat', sans-serif;
+    background: var(--black);
+    color: var(--white);
+    overflow-x: hidden;
+    cursor: default;
+  }
+
+  /* ===== SCROLLBAR ===== */
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: var(--black); }
+  ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 4px; }
+
+  /* ===== LOADER ===== */
+  #loader {
+    position: fixed; inset: 0; z-index: 9999;
+    background: var(--black);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    transition: opacity 0.8s ease, visibility 0.8s ease;
+  }
+  #loader.hidden { opacity: 0; visibility: hidden; }
+  .loader-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem; font-weight: 300; color: var(--gold);
+    letter-spacing: 0.3em;
+    animation: pulseGold 1.5s ease infinite;
+  }
+  .loader-bar {
+    width: 200px; height: 2px; background: var(--black-4);
+    margin-top: 2rem; border-radius: 2px; overflow: hidden;
+  }
+  .loader-bar-fill {
+    height: 100%; width: 0; background: linear-gradient(90deg, var(--gold-dark), var(--gold-light));
+    border-radius: 2px;
+    animation: loadBar 2s ease forwards;
+  }
+  @keyframes loadBar { to { width: 100%; } }
+  @keyframes pulseGold { 0%,100% { opacity:1; } 50% { opacity:0.5; } }
+
+  /* ===== NAVBAR ===== */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    padding: 1.2rem 5%;
+    display: flex; align-items: center; justify-content: space-between;
+    transition: all 0.4s ease;
+  }
+  nav.scrolled {
+    background: rgba(8,8,8,0.95);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+    padding: 0.8rem 5%;
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem; font-weight: 600; color: var(--white);
+    text-decoration: none; letter-spacing: 0.05em;
+  }
+  .nav-logo span { color: var(--gold); }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    color: var(--white-dim); text-decoration: none;
+    font-size: 0.75rem; font-weight: 500; letter-spacing: 0.15em;
+    text-transform: uppercase; transition: color 0.3s;
+    position: relative;
+  }
+  .nav-links a::after {
+    content: ''; position: absolute; bottom: -4px; left: 0;
+    width: 0; height: 1px; background: var(--gold);
+    transition: width 0.3s ease;
+  }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-links a:hover::after { width: 100%; }
+  .nav-cta {
+    background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+    color: var(--black) !important; padding: 0.6rem 1.6rem;
+    border-radius: 2px; font-weight: 600 !important;
+    transition: all 0.3s ease !important;
+  }
+  .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(201,168,76,0.4) !important; }
+  .nav-cta::after { display: none !important; }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+  .hamburger span { display: block; width: 24px; height: 2px; background: var(--gold); transition: all 0.3s; }
+
+  /* ===== HERO ===== */
+  #hero {
+    min-height: 100vh;
+    position: relative;
+    display: flex; align-items: center;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(135deg, rgba(8,8,8,0.92) 0%, rgba(8,8,8,0.7) 50%, rgba(8,8,8,0.85) 100%),
+      url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1600&q=80') center/cover no-repeat;
+    z-index: 0;
+  }
+  .hero-bg::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 30% 50%, rgba(201,168,76,0.08) 0%, transparent 70%);
+  }
+  .hero-grid {
+    position: absolute; inset: 0; z-index: 1; opacity: 0.04;
+    background-image: linear-gradient(var(--gold) 1px, transparent 1px),
+                      linear-gradient(90deg, var(--gold) 1px, transparent 1px);
+    background-size: 80px 80px;
+  }
+  .hero-content {
+    position: relative; z-index: 2;
+    max-width: 1400px; margin: 0 auto; padding: 0 5%;
+    width: 100%;
+  }
+  .hero-label {
+    display: inline-flex; align-items: center; gap: 0.8rem;
+    font-size: 0.7rem; font-weight: 600; letter-spacing: 0.3em;
+    text-transform: uppercase; color: var(--gold);
+    margin-bottom: 2rem;
+    opacity: 0; animation: fadeUp 0.8s ease 2.2s forwards;
+  }
+  .hero-label::before, .hero-label::after {
+    content: ''; display: block; width: 40px; height: 1px; background: var(--gold);
+  }
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3.5rem, 8vw, 7.5rem);
+    font-weight: 300; line-height: 1;
+    color: var(--white); margin-bottom: 0.3rem;
+    opacity: 0; animation: fadeUp 0.9s ease 2.4s forwards;
+  }
+  .hero-title .accent { color: var(--gold); font-style: italic; }
+  .hero-title .bold { font-weight: 700; }
+  .hero-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.5rem, 3.5vw, 3rem);
+    font-weight: 300; font-style: italic;
+    color: var(--white-muted); margin-bottom: 2rem;
+    opacity: 0; animation: fadeUp 0.9s ease 2.5s forwards;
+  }
+  .hero-desc {
+    max-width: 520px;
+    font-size: 0.88rem; line-height: 1.9;
+    color: var(--white-muted); margin-bottom: 3rem;
+    opacity: 0; animation: fadeUp 0.9s ease 2.6s forwards;
+  }
+  .hero-btns {
+    display: flex; gap: 1.2rem; flex-wrap: wrap;
+    opacity: 0; animation: fadeUp 0.9s ease 2.7s forwards;
+  }
+  .btn-gold {
+    display: inline-flex; align-items: center; gap: 0.7rem;
+    background: linear-gradient(135deg, var(--gold-dark), var(--gold-light));
+    color: var(--black);
+    padding: 1rem 2.4rem; border-radius: 2px;
+    font-size: 0.78rem; font-weight: 700; letter-spacing: 0.15em;
+    text-transform: uppercase; text-decoration: none;
+    transition: all 0.3s ease;
+    border: none; cursor: pointer;
+  }
+  .btn-gold:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(201,168,76,0.5); }
+  .btn-outline {
+    display: inline-flex; align-items: center; gap: 0.7rem;
+    background: transparent;
+    color: var(--white);
+    padding: 1rem 2.4rem; border-radius: 2px;
+    font-size: 0.78rem; font-weight: 600; letter-spacing: 0.15em;
+    text-transform: uppercase; text-decoration: none;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255,255,255,0.3);
+  }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-3px); }
+
+  /* Stats Cards */
+  .hero-stats {
+    position: absolute; bottom: 5%; right: 5%; z-index: 2;
+    display: flex; gap: 1.2rem;
+    opacity: 0; animation: fadeLeft 1s ease 3s forwards;
+  }
+  .stat-card {
+    background: rgba(255,255,255,0.04);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(201,168,76,0.25);
+    border-radius: 12px; padding: 1.2rem 1.8rem;
+    text-align: center; min-width: 110px;
+    transition: transform 0.3s, border-color 0.3s;
+  }
+  .stat-card:hover { transform: translateY(-5px); border-color: var(--gold); }
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.2rem; font-weight: 700; color: var(--gold);
+    line-height: 1;
+  }
+  .stat-label { font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--white-muted); margin-top: 0.4rem; }
+
+  /* Scroll indicator */
+  .scroll-hint {
+    position: absolute; bottom: 5%; left: 50%; transform: translateX(-50%);
+    z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--white-muted);
+    animation: bounce 2s ease infinite;
+    opacity: 0; animation: fadeUp 1s ease 3.2s forwards, bounce 2s ease 4.2s infinite;
+  }
+  .scroll-hint-line { width: 1px; height: 50px; background: linear-gradient(to bottom, var(--gold), transparent); }
+  @keyframes bounce { 0%,100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(8px); } }
+
+  /* ===== SECTION BASE ===== */
+  section { padding: 7rem 5%; max-width: 1400px; margin: 0 auto; }
+  .section-wrapper { padding: 7rem 0; }
+  .section-label {
+    display: inline-flex; align-items: center; gap: 0.8rem;
+    font-size: 0.65rem; font-weight: 700; letter-spacing: 0.35em;
+    text-transform: uppercase; color: var(--gold); margin-bottom: 1.2rem;
+  }
+  .section-label::before { content: ''; display: block; width: 30px; height: 1px; background: var(--gold); }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    font-weight: 400; line-height: 1.1;
+    color: var(--white);
+  }
+  .section-title em { color: var(--gold); font-style: italic; }
+  .section-divider { width: 60px; height: 2px; background: linear-gradient(90deg, var(--gold), transparent); margin: 1.5rem 0 2rem; }
+
+  /* ===== ABOUT ===== */
+  #about-wrapper { background: var(--black-2); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+  .about-img-wrap { position: relative; }
+  .about-main-img {
+    width: 100%; aspect-ratio: 3/4; object-fit: cover;
+    border-radius: 4px;
+    border: 1px solid rgba(201,168,76,0.2);
+  }
+  .about-accent-img {
+    position: absolute; bottom: -5%; right: -10%;
+    width: 50%; aspect-ratio: 1;
+    object-fit: cover; border-radius: 4px;
+    border: 3px solid var(--black-2);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  }
+  .about-gold-frame {
+    position: absolute; top: -3%; left: -3%;
+    width: 55%; height: 55%;
+    border: 1px solid rgba(201,168,76,0.25);
+    border-radius: 4px; pointer-events: none;
+  }
+  .about-text p { color: var(--white-muted); line-height: 1.9; font-size: 0.9rem; margin-bottom: 1.5rem; }
+  .about-features { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-top: 2.5rem; }
+  .about-feat {
+    background: var(--white-faint);
+    border: 1px solid rgba(201,168,76,0.15);
+    backdrop-filter: blur(10px);
+    border-radius: 12px; padding: 1.2rem;
+    transition: all 0.3s ease;
+  }
+  .about-feat:hover { border-color: var(--gold); transform: translateY(-3px); }
+  .about-feat-icon { font-size: 1.4rem; color: var(--gold); margin-bottom: 0.6rem; }
+  .about-feat h4 { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.05em; margin-bottom: 0.3rem; }
+  .about-feat p { font-size: 0.75rem; color: var(--white-muted); margin: 0; }
+
+  /* ===== SERVICES ===== */
+  .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 4rem; }
+  .service-card {
+    background: var(--black-3);
+    border: 1px solid rgba(201,168,76,0.12);
+    border-radius: 20px; padding: 2.5rem 2rem;
+    position: relative; overflow: hidden;
+    transition: all 0.4s ease;
+    cursor: default;
+  }
+  .service-card::before {
+    content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--gold-dark), var(--gold-light), var(--gold-dark));
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+  .service-card:hover::before { transform: scaleX(1); }
+  .service-card:hover { transform: translateY(-8px); border-color: rgba(201,168,76,0.4); box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+  .service-card-bg {
+    position: absolute; inset: 0; z-index: 0;
+    background: radial-gradient(circle at top right, rgba(201,168,76,0.05), transparent 60%);
+    opacity: 0; transition: opacity 0.4s ease;
+  }
+  .service-card:hover .service-card-bg { opacity: 1; }
+  .service-icon {
+    width: 60px; height: 60px; border-radius: 14px;
+    background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.25);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem; color: var(--gold);
+    margin-bottom: 1.5rem; position: relative; z-index: 1;
+    transition: all 0.3s ease;
+  }
+  .service-card:hover .service-icon { background: rgba(201,168,76,0.2); transform: scale(1.1); }
+  .service-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 600; margin-bottom: 0.8rem; position: relative; z-index: 1; }
+  .service-card p { font-size: 0.83rem; line-height: 1.8; color: var(--white-muted); position: relative; z-index: 1; }
+  .service-num {
+    position: absolute; top: 1.5rem; right: 1.5rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.5rem; font-weight: 700;
+    color: rgba(201,168,76,0.07); line-height: 1;
+    transition: color 0.3s ease;
+  }
+  .service-card:hover .service-num { color: rgba(201,168,76,0.12); }
+
+  /* ===== PROJECTS ===== */
+  #projects-wrapper { background: var(--black-2); }
+  .projects-tabs { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 3rem; }
+  .tab-btn {
+    padding: 0.6rem 1.5rem; border-radius: 4px;
+    font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em;
+    text-transform: uppercase; cursor: pointer;
+    background: transparent; border: 1px solid rgba(255,255,255,0.15);
+    color: var(--white-muted); transition: all 0.3s ease;
+  }
+  .tab-btn.active, .tab-btn:hover { background: var(--gold); border-color: var(--gold); color: var(--black); }
+  .projects-masonry {
+    columns: 3; column-gap: 1.5rem;
+  }
+  .project-item {
+    break-inside: avoid; margin-bottom: 1.5rem;
+    position: relative; overflow: hidden;
+    border-radius: 12px; cursor: pointer;
+    display: block;
+  }
+  .project-img {
+    width: 100%; display: block;
+    transition: transform 0.5s ease;
+    filter: brightness(0.85);
+  }
+  .project-item:hover .project-img { transform: scale(1.07); filter: brightness(0.6); }
+  .project-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 50%);
+    opacity: 0; transition: opacity 0.4s ease;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 1.5rem;
+  }
+  .project-item:hover .project-overlay { opacity: 1; }
+  .project-cat {
+    display: inline-block; background: var(--gold);
+    color: var(--black); font-size: 0.65rem; font-weight: 700;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    padding: 0.25rem 0.8rem; border-radius: 3px;
+    margin-bottom: 0.5rem; width: fit-content;
+  }
+  .project-name { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 600; }
+  .project-view {
+    position: absolute; top: 1rem; right: 1rem;
+    width: 38px; height: 38px; border-radius: 50%;
+    background: rgba(201,168,76,0.9); color: var(--black);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.85rem; opacity: 0; transform: scale(0.7);
+    transition: all 0.3s ease; text-decoration: none;
+  }
+  .project-item:hover .project-view { opacity: 1; transform: scale(1); }
+
+  /* ===== WHY CHOOSE US ===== */
+  .why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; margin-top: 3rem; }
+  .why-counters { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .counter-box {
+    text-align: center; padding: 2.5rem 1.5rem;
+    background: var(--black-3);
+    border: 1px solid rgba(201,168,76,0.15);
+    border-radius: 16px; transition: all 0.3s ease;
+  }
+  .counter-box:hover { border-color: var(--gold); transform: translateY(-5px); }
+  .counter-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.5rem; font-weight: 700;
+    color: var(--gold); line-height: 1;
+  }
+  .counter-suffix { font-size: 1.8rem; color: var(--gold-light); }
+  .counter-label { font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--white-muted); margin-top: 0.5rem; }
+  .why-features { display: flex; flex-direction: column; gap: 1.5rem; }
+  .why-feat {
+    display: flex; gap: 1.2rem; align-items: flex-start;
+    padding: 1.5rem; border-radius: 14px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(201,168,76,0.1);
+    transition: all 0.3s ease;
+  }
+  .why-feat:hover { border-color: rgba(201,168,76,0.4); background: rgba(201,168,76,0.04); transform: translateX(5px); }
+  .why-feat-icon {
+    width: 48px; height: 48px; flex-shrink: 0;
+    border-radius: 12px; background: rgba(201,168,76,0.1);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem; color: var(--gold);
+  }
+  .why-feat h4 { font-size: 0.9rem; font-weight: 600; margin-bottom: 0.3rem; }
+  .why-feat p { font-size: 0.8rem; color: var(--white-muted); line-height: 1.7; }
+
+  /* ===== TESTIMONIALS ===== */
+  #testimonials-wrapper { background: var(--black-2); overflow: hidden; }
+  .testimonials-track-wrap { overflow: hidden; position: relative; }
+  .testimonials-track {
+    display: flex; gap: 1.5rem;
+    animation: slide 25s linear infinite;
+    width: max-content;
+  }
+  .testimonials-track:hover { animation-play-state: paused; }
+  @keyframes slide { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  .testi-card {
+    min-width: 380px; padding: 2.5rem;
+    background: var(--black-3);
+    border: 1px solid rgba(201,168,76,0.15);
+    border-radius: 20px; flex-shrink: 0;
+    transition: border-color 0.3s ease;
+  }
+  .testi-card:hover { border-color: rgba(201,168,76,0.4); }
+  .testi-stars { color: var(--gold); font-size: 0.9rem; letter-spacing: 0.2em; margin-bottom: 1.2rem; }
+  .testi-text { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-style: italic; line-height: 1.7; color: var(--white-dim); margin-bottom: 1.5rem; }
+  .testi-author { display: flex; align-items: center; gap: 1rem; }
+  .testi-avatar {
+    width: 45px; height: 45px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 700; color: var(--black);
+  }
+  .testi-name { font-weight: 600; font-size: 0.85rem; }
+  .testi-place { font-size: 0.72rem; color: var(--white-muted); margin-top: 0.2rem; }
+
+  /* ===== CONTACT ===== */
+  .contact-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 4rem; margin-top: 4rem; }
+  .contact-info h3 { font-family: 'Cormorant Garamond', serif; font-size: 2rem; margin-bottom: 1rem; }
+  .contact-info p { color: var(--white-muted); line-height: 1.9; font-size: 0.88rem; margin-bottom: 2rem; }
+  .contact-links { display: flex; flex-direction: column; gap: 1rem; }
+  .contact-link {
+    display: flex; align-items: center; gap: 1rem;
+    padding: 1rem 1.5rem; border-radius: 12px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(201,168,76,0.15);
+    text-decoration: none; color: var(--white);
+    transition: all 0.3s ease;
+  }
+  .contact-link:hover { border-color: var(--gold); background: rgba(201,168,76,0.06); transform: translateX(5px); }
+  .contact-link-icon {
+    width: 44px; height: 44px; border-radius: 10px;
+    background: rgba(201,168,76,0.1); color: var(--gold);
+    display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0;
+  }
+  .contact-link-text span { display: block; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--white-muted); margin-bottom: 0.2rem; }
+  .contact-link-text strong { font-size: 0.9rem; font-weight: 600; }
+  .contact-form { display: flex; flex-direction: column; gap: 1.2rem; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+  .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+  .form-group label { font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--white-muted); }
+  .form-group input, .form-group textarea, .form-group select {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px; padding: 0.9rem 1.2rem;
+    color: var(--white); font-family: 'Montserrat', sans-serif;
+    font-size: 0.85rem; transition: border-color 0.3s, box-shadow 0.3s;
+    outline: none; resize: none;
+  }
+  .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(201,168,76,0.1); }
+  .form-group textarea { height: 130px; }
+  .form-group select option { background: var(--black-3); }
+  .map-embed { margin-top: 3rem; border-radius: 16px; overflow: hidden; border: 1px solid rgba(201,168,76,0.2); }
+  .map-embed iframe { width: 100%; height: 300px; display: block; filter: grayscale(1) invert(0.9); }
+
+  /* ===== FOOTER ===== */
+  footer {
+    background: var(--black);
+    border-top: 1px solid rgba(201,168,76,0.2);
+    padding: 5rem 5% 2rem;
+  }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; max-width: 1400px; margin: 0 auto; }
+  .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 600; color: var(--white); margin-bottom: 1rem; }
+  .footer-logo span { color: var(--gold); }
+  .footer-desc { font-size: 0.83rem; color: var(--white-muted); line-height: 1.8; max-width: 280px; margin-bottom: 1.5rem; }
+  .footer-socials { display: flex; gap: 0.8rem; }
+  .footer-social {
+    width: 38px; height: 38px; border-radius: 8px;
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(201,168,76,0.2);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--white-muted); font-size: 0.95rem;
+    text-decoration: none; transition: all 0.3s ease;
+  }
+  .footer-social:hover { background: var(--gold); border-color: var(--gold); color: var(--black); transform: translateY(-3px); }
+  .footer-col h4 {
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--gold);
+    margin-bottom: 1.5rem; padding-bottom: 0.8rem;
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+  }
+  .footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
+  .footer-links a { font-size: 0.83rem; color: var(--white-muted); text-decoration: none; transition: color 0.3s; }
+  .footer-links a:hover { color: var(--gold); }
+  .footer-contact-item { display: flex; gap: 0.8rem; align-items: flex-start; margin-bottom: 0.8rem; }
+  .footer-contact-item i { color: var(--gold); font-size: 0.85rem; margin-top: 0.15rem; flex-shrink: 0; }
+  .footer-contact-item span { font-size: 0.82rem; color: var(--white-muted); line-height: 1.6; }
+  .footer-bottom {
+    max-width: 1400px; margin: 3rem auto 0;
+    padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.06);
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
+  }
+  .footer-bottom p { font-size: 0.75rem; color: var(--white-muted); }
+  .footer-bottom span { color: var(--gold); }
+
+  /* ===== FLOATING BUTTONS ===== */
+  .floating-btns {
+    position: fixed; bottom: 2rem; right: 2rem; z-index: 900;
+    display: flex; flex-direction: column; gap: 0.8rem;
+  }
+  .float-btn {
+    width: 52px; height: 52px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem; text-decoration: none;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    transition: all 0.3s ease;
+    border: none; cursor: pointer;
+  }
+  .float-btn:hover { transform: scale(1.12); }
+  .float-wa { background: #25D366; color: white; }
+  .float-call { background: var(--gold); color: var(--black); }
+  .float-ig { background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color: white; }
+
+  /* ===== ANIMATIONS ===== */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeLeft { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
+  .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-left { opacity: 0; transform: translateX(-40px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal-left.visible { opacity: 1; transform: translateX(0); }
+  .reveal-right { opacity: 0; transform: translateX(40px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal-right.visible { opacity: 1; transform: translateX(0); }
+
+  /* Gold line decoration */
+  .gold-line { display: flex; align-items: center; gap: 1rem; margin: 2rem 0; }
+  .gold-line::before, .gold-line::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+  .gold-line-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); }
+
+  /* Mobile nav */
+  .mobile-nav {
+    display: none; position: fixed; inset: 0; z-index: 999;
+    background: rgba(8,8,8,0.98); backdrop-filter: blur(20px);
+    flex-direction: column; align-items: center; justify-content: center; gap: 2.5rem;
+  }
+  .mobile-nav.open { display: flex; }
+  .mobile-nav a { font-family: 'Cormorant Garamond', serif; font-size: 2rem; color: var(--white); text-decoration: none; transition: color 0.3s; }
+  .mobile-nav a:hover { color: var(--gold); }
+  .mobile-close { position: absolute; top: 2rem; right: 2rem; font-size: 1.5rem; color: var(--gold); background: none; border: none; cursor: pointer; }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 1024px) {
+    .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .about-accent-img { display: none; }
+    .services-grid { grid-template-columns: repeat(2, 1fr); }
+    .projects-masonry { columns: 2; }
+    .why-grid { grid-template-columns: 1fr; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .hero-stats { display: none; }
+  }
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    section { padding: 4rem 5%; }
+    .services-grid { grid-template-columns: 1fr; }
+    .projects-masonry { columns: 1; }
+    .why-counters { grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .counter-box { padding: 1.5rem 1rem; }
+    .about-features { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .footer-bottom { flex-direction: column; text-align: center; }
+    .hero-btns { flex-direction: column; align-items: stretch; }
+    .btn-gold, .btn-outline { text-align: center; justify-content: center; }
+    .hero-title { font-size: clamp(2.5rem, 12vw, 3.5rem); }
+    .hero-sub { font-size: clamp(1.2rem, 6vw, 1.5rem); }
+    .section-title { font-size: clamp(2rem, 8vw, 2.5rem); }
+    .testi-card { min-width: 85vw; padding: 1.5rem; }
+    .floating-btns { bottom: 1rem; right: 1rem; gap: 0.5rem; }
+    .float-btn { width: 45px; height: 45px; font-size: 1rem; }
+    .instagram-media { min-width: 100% !important; max-width: 100% !important; margin: 0 !important; width: 100% !important; }
+  }
+  @media (max-width: 480px) {
+    .why-counters { grid-template-columns: 1fr; }
+    .projects-tabs { justify-content: center; }
+    .tab-btn { flex: 1 1 40%; text-align: center; font-size: 0.65rem; padding: 0.5rem 0.5rem; }
+    .hero-label { font-size: 0.6rem; letter-spacing: 0.2em; }
+    .hero-label::before, .hero-label::after { width: 20px; }
+  }
+</style>
+</head>
+<body>
+
+
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobileNav">
+  <button class="mobile-close" onclick="closeMobileNav()"><i class="fas fa-times"></i></button>
+  <a href="#hero" onclick="closeMobileNav()">Home</a>
+  <a href="#about" onclick="closeMobileNav()">About</a>
+  <a href="#services" onclick="closeMobileNav()">Services</a>
+  <a href="#projects" onclick="closeMobileNav()">Projects</a>
+  <a href="#why" onclick="closeMobileNav()">Why Us</a>
+  <a href="#contact" onclick="closeMobileNav()">Contact</a>
+</div>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">Arun <span>Constructions</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#why">Why Us</a></li>
+    <li><a href="#testimonials">Reviews</a></li>
+    <li><a href="#contact" class="nav-cta">Contact</a></li>
+  </ul>
+  <div class="hamburger" onclick="openMobileNav()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-label">Tuticorin & Nearby Areas</div>
+    <h1 class="hero-title">
+      <span class="bold">Arun</span><br>
+      <span class="accent">Constructions</span><br>
+      <span style="font-size:0.6em; font-weight:300; color:var(--white-dim);">&amp; Designers</span>
+    </h1>
+    <p class="hero-sub">Building Dreams with Modern Design</p>
+    <p class="hero-desc">We craft extraordinary living & commercial spaces — where architecture meets artistry, and every detail speaks of premium quality and timeless elegance.</p>
+    <div class="hero-btns">
+      <a href="tel:8012730556" class="btn-gold"><i class="fas fa-phone"></i> Call Now</a>
+      <a href="#projects" class="btn-outline"><i class="fas fa-images"></i> View Projects</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat-card">
+      <div class="stat-num">100<span style="font-size:1.2rem">+</span></div>
+      <div class="stat-label">Projects</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" style="font-size:1.4rem;padding-top:0.3rem"><i class="fas fa-award"></i></div>
+      <div class="stat-label">Modern Design</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" style="font-size:1.4rem;padding-top:0.3rem"><i class="fas fa-shield-alt"></i></div>
+      <div class="stat-label">Trusted Quality</div>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <div class="scroll-hint-line"></div>
+    Scroll
+  </div>
+</section>
+
+<!-- ABOUT -->
+<div id="about-wrapper" class="section-wrapper">
+<section id="about">
+  <div class="about-grid">
+    <div class="about-img-wrap reveal-left">
+      <div class="about-gold-frame"></div>
+      <img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=700&q=80" alt="Construction" class="about-main-img">
+      <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=400&q=80" alt="Interior" class="about-accent-img">
+    </div>
+    <div class="about-text reveal-right">
+      <div class="section-label">Who We Are</div>
+      <h2 class="section-title">Building the <em>Future</em><br>with Precision</h2>
+      <div class="section-divider"></div>
+      <p>Arun Constructions & Designers is a premier construction and interior design firm based in Tuticorin, serving the region and surrounding areas. With a legacy of over 100 successful projects, we bring dreams to life through exceptional craftsmanship, innovative design, and unmatched quality.</p>
+      <p>From luxury residences to modern commercial spaces, our team of expert architects, engineers, and designers delivers projects that exceed expectations — on time and within budget. We blend contemporary aesthetics with functional brilliance to create spaces that inspire.</p>
+      <div class="about-features">
+        <div class="about-feat">
+          <div class="about-feat-icon"><i class="fas fa-drafting-compass"></i></div>
+          <h4>Expert Architecture</h4>
+          <p>Innovative designs crafted with precision</p>
+        </div>
+        <div class="about-feat">
+          <div class="about-feat-icon"><i class="fas fa-couch"></i></div>
+          <h4>Interior Mastery</h4>
+          <p>Spaces that reflect luxury & lifestyle</p>
+        </div>
+        <div class="about-feat">
+          <div class="about-feat-icon"><i class="fas fa-hard-hat"></i></div>
+          <h4>Quality Build</h4>
+          <p>Premium materials, lasting structures</p>
+        </div>
+        <div class="about-feat">
+          <div class="about-feat-icon"><i class="fas fa-clock"></i></div>
+          <h4>On-Time Delivery</h4>
+          <p>Project milestones always on schedule</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div style="text-align:center" class="reveal">
+    <div class="section-label" style="justify-content:center">What We Offer</div>
+    <h2 class="section-title">Our <em>Premium</em> Services</h2>
+    <div class="section-divider" style="margin:1.5rem auto 0"></div>
+  </div>
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <div class="service-card-bg"></div>
+      <div class="service-num">01</div>
+      <div class="service-icon"><i class="fas fa-building"></i></div>
+      <h3>Construction &amp; Interior Design</h3>
+      <p>End-to-end construction services combined with bespoke interior design. We create beautiful, functional spaces tailored to your vision and lifestyle.</p>
+    </div>
+    <div class="service-card reveal" style="transition-delay:0.1s">
+      <div class="service-card-bg"></div>
+      <div class="service-num">02</div>
+      <div class="service-icon"><i class="fas fa-map"></i></div>
+      <h3>House Plans</h3>
+      <p>Detailed architectural house plans with optimized space utilization, structural integrity, and aesthetic brilliance — designed for your dream home.</p>
+    </div>
+    <div class="service-card reveal" style="transition-delay:0.2s">
+      <div class="service-card-bg"></div>
+      <div class="service-num">03</div>
+      <div class="service-icon"><i class="fas fa-cube"></i></div>
+      <h3>3D Elevation</h3>
+      <p>Photorealistic 3D elevations that let you visualize your project before construction begins — cinematic renders with stunning architectural detail.</p>
+    </div>
+    <div class="service-card reveal" style="transition-delay:0.1s">
+      <div class="service-card-bg"></div>
+      <div class="service-num">04</div>
+      <div class="service-icon"><i class="fas fa-tools"></i></div>
+      <h3>Renovation Works</h3>
+      <p>Transform existing spaces with modern upgrades. From structural renovations to complete interior overhauls — breathing new life into your property.</p>
+    </div>
+    <div class="service-card reveal" style="transition-delay:0.2s">
+      <div class="service-card-bg"></div>
+      <div class="service-num">05</div>
+      <div class="service-icon"><i class="fas fa-home"></i></div>
+      <h3>Residential Projects</h3>
+      <p>Luxury villas, smart apartments, and dream homes — we craft residential spaces where comfort meets elegance, built to last generations.</p>
+    </div>
+    <div class="service-card reveal" style="transition-delay:0.3s">
+      <div class="service-card-bg"></div>
+      <div class="service-num">06</div>
+      <div class="service-icon"><i class="fas fa-city"></i></div>
+      <h3>Commercial Projects</h3>
+      <p>Modern offices, retail spaces, and commercial complexes designed for productivity and prestige — where business meets architectural excellence.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<div id="projects-wrapper" class="section-wrapper">
+<section id="projects">
+  <div class="reveal">
+    <div class="section-label">Our Portfolio</div>
+    <h2 class="section-title">Featured <em>Projects</em></h2>
+    <div class="section-divider"></div>
+    <p style="color:var(--white-muted);font-size:0.88rem;max-width:500px;line-height:1.8;margin-bottom:2.5rem">
+      A curated selection of our finest work across elevation design, interiors, renovations, and full construction projects.</p>
+  </div>
+  <div class="projects-tabs reveal">
+    <button class="tab-btn active">All Works</button>
+    <button class="tab-btn">Elevation</button>
+    <button class="tab-btn">Interior</button>
+    <button class="tab-btn">Renovation</button>
+    <button class="tab-btn">Construction</button>
+  </div>
+  <div class="projects-masonry reveal">
+    <div class="project-item">
+      <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DYhuDNZB9Uy/" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"></blockquote>
+    </div>
+    <div class="project-item">
+      <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DVGRV0LCUuo/" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"></blockquote>
+    </div>
+    <div class="project-item">
+      <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DTK5mpvCQcR/" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"></blockquote>
+    </div>
+    <div class="project-item">
+      <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DPHMdX3iYUL/" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"></blockquote>
+    </div>
+    <div class="project-item">
+      <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DNZmAAXJMtP/" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"></blockquote>
+    </div>
+    <div class="project-item">
+      <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DMULPGEpEQJ/" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"></blockquote>
+    </div>
+    <div class="project-item">
+      <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DKB_p1upss9/" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"></blockquote>
+    </div>
+    <div class="project-item">
+      <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DJvTVu7poHs/" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"></blockquote>
+    </div>
+    <div class="project-item">
+      <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DJmXY8zpp9S/" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"></blockquote>
+    </div>
+    <div class="project-item">
+      <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DIzF7yozM7H/" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"></blockquote>
+    </div>
+    <div class="project-item">
+      <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DH7X6HcpOuR/" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"></blockquote>
+    </div>
+  </div>
+  <script async src="https://www.instagram.com/embed.js"></script>
+  <div style="text-align:center;margin-top:3rem" class="reveal">
+    <a href="https://www.instagram.com/arun_constructions7/" target="_blank" class="btn-outline">
+      <i class="fab fa-instagram"></i> See All Projects on Instagram
+    </a>
+  </div>
+</section>
+</div>
+
+<!-- WHY CHOOSE US -->
+<section id="why">
+  <div class="why-grid">
+    <div class="reveal-left">
+      <div class="section-label">Why Choose Us</div>
+      <h2 class="section-title">Excellence in <em>Every</em><br>Detail</h2>
+      <div class="section-divider"></div>
+      <div class="why-counters">
+        <div class="counter-box">
+          <div class="counter-num"><span class="counter" data-target="20">0</span><span class="counter-suffix">+</span></div>
+          <div class="counter-label">Projects Completed</div>
+        </div>
+        <div class="counter-box">
+          <div class="counter-num"><span class="counter" data-target="12">0</span><span class="counter-suffix">+</span></div>
+          <div class="counter-label">Years Experience</div>
+        </div>
+        <div class="counter-box">
+          <div class="counter-num"><span class="counter" data-target="50">0</span><span class="counter-suffix">+</span></div>
+          <div class="counter-label">Happy Families</div>
+        </div>
+        <div class="counter-box">
+          <div class="counter-num"><span class="counter" data-target="100">0</span><span class="counter-suffix">%</span></div>
+          <div class="counter-label">Client Satisfaction</div>
+        </div>
+      </div>
+    </div>
+    <div class="why-features reveal-right">
+      <div class="why-feat">
+        <div class="why-feat-icon"><i class="fas fa-gem"></i></div>
+        <div>
+          <h4>Premium Quality Materials</h4>
+          <p>We source only the finest materials — from structural steel to finishing touches — ensuring durability, beauty, and longevity in every project.</p>
+        </div>
+      </div>
+      <div class="why-feat">
+        <div class="why-feat-icon"><i class="fas fa-pencil-ruler"></i></div>
+        <div>
+          <h4>Innovative Modern Design</h4>
+          <p>Our design team stays ahead of global architectural trends, delivering contemporary spaces that are both visually stunning and functionally superior.</p>
+        </div>
+      </div>
+      <div class="why-feat">
+        <div class="why-feat-icon"><i class="fas fa-calendar-check"></i></div>
+        <div>
+          <h4>On-Time Project Delivery</h4>
+          <p>We respect your time. Every project follows a structured timeline with clear milestones, ensuring delivery as promised — every single time.</p>
+        </div>
+      </div>
+      <div class="why-feat">
+        <div class="why-feat-icon"><i class="fas fa-users"></i></div>
+        <div>
+          <h4>Experienced Team of Experts</h4>
+          <p>Our seasoned team of architects, engineers, and craftsmen bring decades of combined expertise to create masterpieces that define the skyline.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<div id="testimonials-wrapper" class="section-wrapper">
+<section id="testimonials" style="padding-bottom:0">
+  <div style="text-align:center" class="reveal">
+    <div class="section-label" style="justify-content:center">Client Reviews</div>
+    <h2 class="section-title">What Our <em>Clients</em> Say</h2>
+    <div class="section-divider" style="margin:1.5rem auto 3rem"></div>
+  </div>
+</section>
+<div class="testimonials-track-wrap" style="padding-bottom:5rem">
+  <div class="testimonials-track">
+    <!-- First set -->
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <div class="testi-text">"Arun Constructions transformed our dream home into reality. The 3D elevation they designed was breathtaking, and the actual construction surpassed every expectation. Truly world-class work."</div>
+      <div class="testi-author">
+        <div class="testi-avatar">R</div>
+        <div><div class="testi-name">Rajesh Kumar</div><div class="testi-place">Tuticorin</div></div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <div class="testi-text">"Outstanding interior design work on our new home. Every room feels like it belongs in an architecture magazine. Professional team, timely delivery, and impeccable attention to detail."</div>
+      <div class="testi-author">
+        <div class="testi-avatar">P</div>
+        <div><div class="testi-name">Priya Anand</div><div class="testi-place">Tirunelveli</div></div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <div class="testi-text">"We hired them for a full commercial renovation and the results were phenomenal. Modern aesthetics, on budget, and finished two weeks early. Best construction firm in South Tamil Nadu."</div>
+      <div class="testi-author">
+        <div class="testi-avatar">M</div>
+        <div><div class="testi-name">Manoj Selvam</div><div class="testi-place">Thoothukudi</div></div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <div class="testi-text">"The house plan they designed for us was genius — they maximized every square foot. The construction quality is top-notch. Our family is absolutely in love with the new home."</div>
+      <div class="testi-author">
+        <div class="testi-avatar">S</div>
+        <div><div class="testi-name">Suresh Nair</div><div class="testi-place">Kovilpatti</div></div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <div class="testi-text">"From the initial consultation to the final walk-through, Arun and his team were professional, transparent, and dedicated. The 3D visualization made the whole process stress-free."</div>
+      <div class="testi-author">
+        <div class="testi-avatar">V</div>
+        <div><div class="testi-name">Vijayalakshmi</div><div class="testi-place">Tuticorin</div></div>
+      </div>
+    </div>
+    <!-- Duplicated for infinite scroll -->
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <div class="testi-text">"Arun Constructions transformed our dream home into reality. The 3D elevation they designed was breathtaking, and the actual construction surpassed every expectation. Truly world-class work."</div>
+      <div class="testi-author">
+        <div class="testi-avatar">R</div>
+        <div><div class="testi-name">Rajesh Kumar</div><div class="testi-place">Tuticorin</div></div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <div class="testi-text">"Outstanding interior design work on our new home. Every room feels like it belongs in an architecture magazine. Professional team, timely delivery, and impeccable attention to detail."</div>
+      <div class="testi-author">
+        <div class="testi-avatar">P</div>
+        <div><div class="testi-name">Priya Anand</div><div class="testi-place">Tirunelveli</div></div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <div class="testi-text">"We hired them for a full commercial renovation and the results were phenomenal. Modern aesthetics, on budget, and finished two weeks early. Best construction firm in South Tamil Nadu."</div>
+      <div class="testi-author">
+        <div class="testi-avatar">M</div>
+        <div><div class="testi-name">Manoj Selvam</div><div class="testi-place">Thoothukudi</div></div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <div class="testi-text">"The house plan they designed for us was genius — they maximized every square foot. The construction quality is top-notch. Our family is absolutely in love with the new home."</div>
+      <div class="testi-author">
+        <div class="testi-avatar">S</div>
+        <div><div class="testi-name">Suresh Nair</div><div class="testi-place">Kovilpatti</div></div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <div class="testi-text">"From the initial consultation to the final walk-through, Arun and his team were professional, transparent, and dedicated. The 3D visualization made the whole process stress-free."</div>
+      <div class="testi-author">
+        <div class="testi-avatar">V</div>
+        <div><div class="testi-name">Vijayalakshmi</div><div class="testi-place">Tuticorin</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-grid">
+    <div class="reveal-left">
+      <div class="section-label">Get In Touch</div>
+      <h2 class="section-title">Let's Build<br>Your <em>Dream</em></h2>
+      <div class="section-divider"></div>
+      <p>Ready to start your project? We'd love to hear from you. Reach out today for a free consultation and let's turn your vision into reality.</p>
+      <div class="contact-links">
+        <a href="tel:8012730556" class="contact-link">
+          <div class="contact-link-icon"><i class="fas fa-phone"></i></div>
+          <div class="contact-link-text"><span>Call Us</span><strong>+91 80127 30556</strong></div>
+        </a>
+        <a href="https://wa.me/918012730556" target="_blank" class="contact-link">
+          <div class="contact-link-icon"><i class="fab fa-whatsapp"></i></div>
+          <div class="contact-link-text"><span>WhatsApp</span><strong>+91 80127 30556</strong></div>
+        </a>
+        <a href="https://www.instagram.com/arun_constructions7/" target="_blank" class="contact-link">
+          <div class="contact-link-icon"><i class="fab fa-instagram"></i></div>
+          <div class="contact-link-text"><span>Instagram</span><strong>@arun_constructions7</strong></div>
+        </a>
+        <a href="https://maps.app.goo.gl/gAU3AfxGYfYvif5y6" target="_blank" class="contact-link">
+          <div class="contact-link-icon"><i class="fas fa-map-marker-alt"></i></div>
+          <div class="contact-link-text"><span>Location</span><strong>Tuticorin & Nearby Areas</strong></div>
+        </a>
+      </div>
+      <div class="map-embed">
+        <iframe src="https://maps.google.com/maps?q=Tuticorin,Tamil Nadu&output=embed" loading="lazy" allowfullscreen></iframe>
+      </div>
+    </div>
+    <div class="reveal-right">
+      <div style="background:var(--black-3);border:1px solid rgba(201,168,76,0.2);border-radius:20px;padding:3rem">
+        <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;margin-bottom:0.5rem">Send Us a Message</h3>
+        <p style="color:var(--white-muted);font-size:0.82rem;margin-bottom:2rem">Tell us about your project and we'll get back to you within 24 hours.</p>
+        <div class="contact-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Your Name</label>
+              <input type="text" id="contactName" placeholder="John Doe">
+            </div>
+            <div class="form-group">
+              <label>Phone Number</label>
+              <input type="tel" id="contactPhone" placeholder="+91 XXXXX XXXXX">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" id="contactEmail" placeholder="john@email.com">
+          </div>
+          <div class="form-group">
+            <label>Service Interested In</label>
+            <select id="contactService">
+              <option value="">Select a Service</option>
+              <option>Construction & Interior Design</option>
+              <option>House Plans</option>
+              <option>3D Elevation</option>
+              <option>Renovation Works</option>
+              <option>Residential Project</option>
+              <option>Commercial Project</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Project Details</label>
+            <textarea id="contactDetails" placeholder="Tell us about your dream project..."></textarea>
+          </div>
+          <button class="btn-gold" style="width:100%;justify-content:center;padding:1.1rem" onclick="handleSubmit()">
+            <i class="fas fa-paper-plane"></i> Send Message
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-logo">Arun <span>Constructions</span> &amp; Designers</div>
+      <p class="footer-desc">Building premium residences and commercial spaces across Tuticorin and nearby areas. Quality, elegance, and precision in every project.</p>
+      <div class="footer-socials">
+        <a href="https://www.instagram.com/arun_constructions7/" target="_blank" class="footer-social"><i class="fab fa-instagram"></i></a>
+        <a href="https://wa.me/918012730556" target="_blank" class="footer-social"><i class="fab fa-whatsapp"></i></a>
+        <a href="tel:8012730556" class="footer-social"><i class="fas fa-phone"></i></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul class="footer-links">
+        <li><a href="#hero">Home</a></li>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#why">Why Choose Us</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <ul class="footer-links">
+        <li><a href="#services">Construction</a></li>
+        <li><a href="#services">Interior Design</a></li>
+        <li><a href="#services">House Plans</a></li>
+        <li><a href="#services">3D Elevation</a></li>
+        <li><a href="#services">Renovation</a></li>
+        <li><a href="#services">Commercial</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <div class="footer-contact-item"><i class="fas fa-phone"></i><span>+91 80127 30556</span></div>
+      <div class="footer-contact-item"><i class="fab fa-whatsapp"></i><span>+91 80127 30556</span></div>
+      <div class="footer-contact-item"><i class="fab fa-instagram"></i><span>@arun_constructions7</span></div>
+      <div class="footer-contact-item"><i class="fas fa-map-marker-alt"></i><span>Tuticorin & Nearby Areas, Tamil Nadu</span></div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 <span>Arun Constructions & Designers</span>. All rights reserved.</p>
+    <p>Designed with <span>♥</span> for excellence</p>
+  </div>
+</footer>
+
+<!-- FLOATING BUTTONS -->
+<div class="floating-btns">
+  <a href="https://wa.me/918012730556" target="_blank" class="float-btn float-wa" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+  <a href="tel:8012730556" class="float-btn float-call" title="Call Now"><i class="fas fa-phone"></i></a>
+  <a href="https://www.instagram.com/arun_constructions7/" target="_blank" class="float-btn float-ig" title="Instagram"><i class="fab fa-instagram"></i></a>
+</div>
+
+<script>
+
+
+  // Navbar scroll
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 50);
+  });
+
+  // Mobile nav
+  function openMobileNav() { document.getElementById('mobileNav').classList.add('open'); }
+  function closeMobileNav() { document.getElementById('mobileNav').classList.remove('open'); }
+
+  // Intersection observer for reveal animations
+  const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), (entry.target.dataset.delay || 0));
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  revealEls.forEach(el => observer.observe(el));
+
+  // Counter animation
+  let countersStarted = false;
+  const counterObserver = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting && !countersStarted) {
+      countersStarted = true;
+      document.querySelectorAll('.counter').forEach(el => {
+        const target = +el.dataset.target;
+        let count = 0;
+        const step = target / 60;
+        const timer = setInterval(() => {
+          count = Math.min(count + step, target);
+          el.textContent = Math.floor(count);
+          if (count >= target) clearInterval(timer);
+        }, 30);
+      });
+    }
+  }, { threshold: 0.3 });
+  const whySection = document.querySelector('#why');
+  if (whySection) counterObserver.observe(whySection);
+
+  // Tab buttons (visual only)
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+    });
+  });
+
+  // Form submit
+  function handleSubmit() {
+    const name = document.getElementById('contactName').value;
+    const phone = document.getElementById('contactPhone').value;
+    const email = document.getElementById('contactEmail').value;
+    const service = document.getElementById('contactService').value;
+    const details = document.getElementById('contactDetails').value;
+    
+    if(!name || !phone || !details) {
+      alert('Please fill out your Name, Phone Number, and Project Details.');
+      return;
+    }
+
+    const message = `*New Website Inquiry*\n\n*Name:* ${name}\n*Phone:* ${phone}\n*Email:* ${email || 'Not provided'}\n*Service:* ${service || 'Not selected'}\n*Details:* ${details}`;
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappUrl = `https://wa.me/918012730556?text=${encodedMessage}`;
+    
+    window.open(whatsappUrl, '_blank');
+
+    const btn = event.currentTarget;
+    btn.innerHTML = '<i class="fas fa-check"></i> Redirecting to WhatsApp...';
+    btn.style.background = 'linear-gradient(135deg, #2d7a2d, #4caf50)';
+    setTimeout(() => {
+      btn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Message';
+      btn.style.background = '';
+    }, 3000);
+  }
+</script>
+</body>
+</html>
